@@ -273,9 +273,8 @@ print("[Saved] task1_summary_final.png")
  """
 
 # ── Figure 4: Active Power Losses (grouped scatter plot with guides) ─────────────────────────────────
-# ── Figure 4: Active Power Losses (grouped scatter plot, lines and transformers separated) ─────────────────────────────────
 fig4, ax = plt.subplots(figsize=(14, 6))
-ax.set_title("Active Power Losses", fontsize=14, fontweight='bold')
+ax.set_title("Active Power Losses", fontsize=14, fontweight='bold', pad=20)
 
 # Define markers and colors for each scenario
 markers = ['o', 's', '^']  # circle, square, triangle
@@ -328,16 +327,15 @@ for i in np.arange(n_lines):
 for i in np.arange(n_trafos):
     ax.axvline(x=n_lines + i, color='lightgrey', linestyle=':', linewidth=0.7, zorder=0)
 
-
-# Add labels for lines and transformers
-ax.text(n_lines/2, -0.15 * max_loss, 'Lines', ha='center', va='top', fontsize=11, fontweight='bold')
-ax.text(n_lines + n_trafos/2, -0.15 * max_loss, 'Transformers', ha='center', va='top', fontsize=11, fontweight='bold')
+# Add labels for lines and transformers (higher above the x-axis)
+ax.text(n_lines/2, -0.05 * max_loss, 'Lines', ha='center', va='top', fontsize=12, fontweight='bold')
+ax.text(n_lines + n_trafos/2, -0.05 * max_loss, 'Transformers', ha='center', va='top', fontsize=12, fontweight='bold')
 
 # Add reference line at 0 MW
 ax.axhline(0, color='black', linestyle='-', linewidth=0.7)
 
 # Labels and legend
-ax.set_ylabel("Active Power Losses (MW)")
+ax.set_ylabel("Active Power Losses (MW)", labelpad=15)
 ax.set_xticks(list(np.arange(n_lines)) + list(n_lines + np.arange(n_trafos)))
 ax.set_xticklabels(list(np.arange(n_lines)) + list(np.arange(n_trafos)))
 ax.set_ylim(0, 7.5)
@@ -345,6 +343,8 @@ ax.legend(fontsize=9, bbox_to_anchor=(1.05, 1), loc='upper left')
 ax.grid(axis='y', linestyle='--', alpha=0.4)
 
 plt.tight_layout(rect=[0, 0, 0.9, 1])
+""" plt.savefig(os.path.join(script_dir, 'task1_losses_final_cleanest.png'), dpi=150, bbox_inches='tight')
+print("[Saved] task1_losses_final_cleanest.png") """
 
 plt.show()
 print("\n[DONE] All scenarios complete.")
